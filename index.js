@@ -1,38 +1,100 @@
 //?Selector
 const container = document.querySelector(".container");
+const screenDiv = document.querySelector(".screen");
+const screenOpacityDiv = document.querySelector(".screen-opacity");
+let process = "";
+let number1 = 0;
+let number2 = 0;
+let result = 0;
 
 //?load
-window.addEventListener("load", () => {});
+window.addEventListener("load", (e) => {
+  e.preventDefault();
+});
 
 //?onclick
-
 container.addEventListener("click", (event) => {
-  const screenDiv = document.querySelector(".screen");
-  const screenOpacityDiv = document.querySelector(".screen-opacity");
-  let screen = 0;
-  let number1 = 0;
-  let number2 = 0;
-  let result = 0;
-  let process;
   if (event.target.classList.contains("number")) {
-    //screen number yazdır
+    if (screenDiv.innerText == 0) {
+      screenDiv.innerText = event.target.innerText;
+    } else {
+      if (screenDiv.innerText.length < 10) {
+        screenDiv.innerText += event.target.innerText;
+      }
+    }
   } else if (event.target.classList.contains("process")) {
-    // işlemi ve number screen-opacity yazdır
-    console.log("işlem");
+    if (screenDiv.innerText == 0) {
+      process = event.target.innerText;
+    } else {
+      process = event.target.innerText;
+      number1 = Number(screenDiv.innerText);
+      screenOpacityDiv.innerText = screenDiv.innerText + " " + process;
+      screenDiv.innerText = "";
+    }
   } else if (event.target.classList.contains("percent")) {
-    //screen dei sayının yüzdesini al
-    console.log("yüzde");
+    if (screenDiv.innerText.length < 10) {
+      (screenDiv.innerText /= 100).toFixed(2);
+    }
   } else if (event.target.classList.contains("minus-plus")) {
-    // screendeki sayıyı negatif veya pozitife çevir
-    console.log("artı-eksi");
+    screenDiv.innerText *= -1;
   } else if (event.target.classList.contains("dot")) {
-    //number ı floata çevir
-    console.log("ondalık");
+    if (!screenDiv.innerText.includes(".")) {
+      screenDiv.innerText += ".";
+    }
   } else if (event.target.classList.contains("del")) {
-    //screen 0 a eşitle
-    console.log("sil");
+    const delBtn = document.querySelector(".del");
+    screenDiv.innerText = 0;
+    screenOpacityDiv.innerText = "";
+    delBtn.innerText = "AC";
   } else if (event.target.classList.contains("result")) {
-    //screen ve screen-opacity deki işlemleri yap
-    console.log("sonuç");
+    number2 = parseFloat(screenDiv.innerText);
+    processFunc();
+    toFixed();
+    console.log(result);
+  }
+  if ((screenDiv.innerText != 0 || screenOpacityDiv.innerText) != "") {
+    const delBtn = document.querySelector(".del");
+    delBtn.innerText = "C";
+  } else {
+    const delBtn = document.querySelector(".del");
+    delBtn.innerText = "AC";
   }
 });
+
+//?function
+const processFunc = () => {
+  switch (process) {
+    case "+":
+      result = number1 + number2;
+      break;
+    case "-":
+      result = number1 - number2;
+      break;
+    case "×":
+      result = number1 * number2;
+      break;
+    case "÷":
+      result = number1 / number2;
+      break;
+  }
+};
+const toFixed = () => {
+  //? number of digits
+
+  //? part after comma
+  if (result >= 1 && result % 1 === 0) {
+    screenDiv.innerText = result;
+  } else if (result >= 1) {
+    screenDiv.innerText = result.toFixed(2);
+  } else if (result == 0) {
+    screenDiv.innerText = result.toFixed(0);
+  } else if (result >= 0.01) {
+    screenDiv.innerText = result.toFixed(3);
+  } else if (result >= 0.0001) {
+    screenDiv.innerText = result.toFixed(6);
+  } else {
+    screenDiv.innerText = result.toFixed(3);
+  }
+
+  screenOpacityDiv.innerText = "";
+};

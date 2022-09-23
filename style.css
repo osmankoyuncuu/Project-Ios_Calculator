@@ -6,7 +6,7 @@
 .container {
   background-color: black;
   color: white;
-  width: 350px;
+  width: 370px;
   height: 700px;
   margin: 5rem auto;
   border-radius: 50px;
@@ -22,6 +22,7 @@
   font-size: 3rem;
   padding-top: 3rem;
   color: gray;
+  margin-left: 2.4rem;
 }
 .screen {
   height: 100px;
@@ -29,13 +30,14 @@
   justify-content: end;
   align-items: flex-end;
   padding-right: 2rem;
-  font-size: 5rem;
+  margin-left: 2.4rem;
+  font-size: 3.7rem;
 }
 .btn-group {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 0.5rem;
-  padding: 1rem 1rem;
+  gap: 0.5rem 0.2rem;
+  padding: 1.3rem 1rem;
 }
 .btn {
   width: 70px;
