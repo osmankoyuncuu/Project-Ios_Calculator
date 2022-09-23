@@ -27,9 +27,9 @@ container.addEventListener("click", (event) => {
       process = event.target.innerText;
     } else {
       process = event.target.innerText;
-      number1 = Number(screenDiv.innerText);
+      number1 = parseFloat(screenDiv.innerText);
       screenOpacityDiv.innerText = screenDiv.innerText + " " + process;
-      screenDiv.innerText = "";
+      screenDiv.innerText = "0";
     }
   } else if (event.target.classList.contains("percent")) {
     if (screenDiv.innerText.length < 10) {
@@ -50,7 +50,6 @@ container.addEventListener("click", (event) => {
     number2 = parseFloat(screenDiv.innerText);
     processFunc();
     toFixed();
-    console.log(result);
   }
   if ((screenDiv.innerText != 0 || screenOpacityDiv.innerText) != "") {
     const delBtn = document.querySelector(".del");
@@ -81,8 +80,8 @@ const processFunc = () => {
 const toFixed = () => {
   //? number of digits
 
-  //? part after comma
   if (result >= 1 && result % 1 === 0) {
+    //? part after comma
     screenDiv.innerText = result;
   } else if (result >= 1) {
     screenDiv.innerText = result.toFixed(2);
