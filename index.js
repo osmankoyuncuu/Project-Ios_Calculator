@@ -3,9 +3,9 @@ const container = document.querySelector(".container");
 const screenDiv = document.querySelector(".screen");
 const screenOpacityDiv = document.querySelector(".screen-opacity");
 let process = "";
-let number1 = 0;
-let number2 = 0;
-let result = 0;
+let number1 = null;
+let number2 = null;
+let result = null;
 
 //?load
 window.addEventListener("load", (e) => {
@@ -48,10 +48,15 @@ container.addEventListener("click", (event) => {
     screenOpacityDiv.innerText = "";
     delBtn.innerText = "AC";
   } else if (event.target.classList.contains("result")) {
-    number2 = parseFloat(screenDiv.innerText);
-    processFunc();
-    toFixed();
+    if (number1 != null && process != "") {
+      number2 = parseFloat(screenDiv.innerText);
+      processFunc();
+      toFixed();
+      number1 = number2 = result = null;
+      process = "";
+    }
   }
+  //? del AC vs C
   if ((screenDiv.innerText != 0 || screenOpacityDiv.innerText) != "") {
     const delBtn = document.querySelector(".del");
     delBtn.innerText = "C";
@@ -88,8 +93,14 @@ const toFixed = () => {
     screenDiv.innerText = result.toFixed(0);
   } else if (result >= 0.01) {
     screenDiv.innerText = result.toFixed(3);
-  } else {
+  } else if (result >= 0.0001) {
+    screenDiv.innerText = result.toFixed(3);
+  } else if (result >= 0.000001) {
     screenDiv.innerText = result.toFixed(9);
+  } else if (result < 0 && result % 1 === 0) {
+    screenDiv.innerText = result;
+  } else {
+    screenDiv.innerText = result.toFixed(2);
   }
 
   screenOpacityDiv.innerText = "";
