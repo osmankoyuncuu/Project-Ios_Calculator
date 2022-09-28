@@ -25,16 +25,18 @@ container.addEventListener("click", (event) => {
   } else if (event.target.classList.contains("process")) {
     if (screenDiv.innerText == 0) {
       process = event.target.innerText;
+      number1 = 0;
+      screenOpacityDiv.innerHTML = `${screenDiv.innerHTML} ${process}`;
     } else {
       process = event.target.innerText;
       number1 = parseFloat(screenDiv.innerText);
-      screenOpacityDiv.innerText = screenDiv.innerText + " " + process;
+      screenOpacityDiv.innerText = `${screenDiv.innerText} ${process}`;
       screenDiv.innerText = "0";
     }
   } else if (event.target.classList.contains("percent")) {
-    if (screenDiv.innerText.length < 10) {
-      (screenDiv.innerText /= 100).toFixed(2);
-    }
+    //?????????????????????
+    result = screenDiv.innerText / 100;
+    toFixed();
   } else if (event.target.classList.contains("minus-plus")) {
     screenDiv.innerText *= -1;
   } else if (event.target.classList.contains("dot")) {
@@ -77,11 +79,9 @@ const processFunc = () => {
       break;
   }
 };
+//? number of digits
 const toFixed = () => {
-  //? number of digits
-
   if (result >= 1 && result % 1 === 0) {
-    //? part after comma
     screenDiv.innerText = result;
   } else if (result >= 1) {
     screenDiv.innerText = result.toFixed(2);
@@ -89,10 +89,8 @@ const toFixed = () => {
     screenDiv.innerText = result.toFixed(0);
   } else if (result >= 0.01) {
     screenDiv.innerText = result.toFixed(3);
-  } else if (result >= 0.0001) {
-    screenDiv.innerText = result.toFixed(6);
   } else {
-    screenDiv.innerText = result.toFixed(3);
+    screenDiv.innerText = result.toFixed(9);
   }
 
   screenOpacityDiv.innerText = "";
