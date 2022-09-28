@@ -34,7 +34,6 @@ container.addEventListener("click", (event) => {
       screenDiv.innerText = "0";
     }
   } else if (event.target.classList.contains("percent")) {
-    //?????????????????????
     result = screenDiv.innerText / 100;
     toFixed();
   } else if (event.target.classList.contains("minus-plus")) {
